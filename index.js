@@ -14,25 +14,34 @@ app.get("/api/timestamp/:time", (req, res) => {
   const isUnixTimeStamp = new Number(timeStamp.toString());
   let time;
 
-  console.log(isUnixTimeStamp)
+  console.log(isUnixTimeStamp);
   if (!isNaN(isUnixTimeStamp)) {
     time = new Date(parseInt(timeStamp));
   } else {
     time = new Date(timeStamp);
   }
 
-  const validTime = time.getTime() ? true : false
+  const validTime = time.getTime() ? true : false;
 
-  if(validTime){
+  if (validTime) {
     res.send({
-        unix: time.getTime(),
-        utc: time.toUTCString()
-      });
+      unix: time.getTime(),
+      utc: time.toUTCString()
+    });
   } else {
-      res.send({
-        error: "Invalid Date"
-    })
+    res.send({
+      error: "Invalid Date"
+    });
   }
+});
+
+app.get("/api/timestamp", (req, res) => {
+  const date = new Date();
+
+  res.send({
+    unix: date.getTime(),
+    utc: date.toUTCString()
+  });
 });
 
 const port = process.env.PORT || 3000;
