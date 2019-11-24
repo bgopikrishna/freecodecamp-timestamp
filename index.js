@@ -11,10 +11,11 @@ app.get("/", (req, res) => {
 
 app.get("/api/timestamp/:time", (req, res) => {
   const timeStamp = req.params.time;
-  const isUnixTimeStamp = new Number(timeStamp);
+  const isUnixTimeStamp = new Number(timeStamp.toString());
   let time;
 
-  if (isUnixTimeStamp) {
+  console.log(isUnixTimeStamp)
+  if (!isNaN(isUnixTimeStamp)) {
     time = new Date(parseInt(timeStamp));
   } else {
     time = new Date(timeStamp);
@@ -25,7 +26,7 @@ app.get("/api/timestamp/:time", (req, res) => {
   if(validTime){
     res.send({
         unix: time.getTime(),
-        utc: time.toUTCString(),
+        utc: time.toUTCString()
       });
   } else {
       res.status(400).send({
