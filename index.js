@@ -29,9 +29,9 @@ app.get("/api/timestamp/:time", (req, res) => {
         utc: time.toUTCString()
       });
   } else {
-      res.status(400).send({
-          error: "Invalid Date"
-      })
+      res.send({
+        error: "Invalid Date"
+    })
   }
 });
 
